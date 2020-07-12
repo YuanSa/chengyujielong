@@ -5,8 +5,38 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>成语接龙</title>
         <link rel="shortcut icon" href="favicon.png" type="image/png" />
+        <link rel="stylesheet" href="css/single.css" />
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
     </head>
     <body>
+        <div class="display" id="game">
+            <div class="bar-box">
+                <div class="bar" v-bind:style="{width: 100*time/setTime +'%'}"></div>
+            </div>
+            <!--<div class="score">{{score}}</div>-->
+            <div class="word">
+                <div class="pair" v-for="pair in pairs" :key="pair.char">
+                    <div class="pinyin">{{pair.pinyin}}</div>
+                    <div class="character">{{pair.char}}</div>
+                </div>
+            </div>
+            <div class="explanation">{{explanation}}</div>
+            <form class="answer" onsubmit="vm.check(); return false;">
+                <input
+                    class="input"
+                    id="input"
+                    type="text"
+                    v-model.trim="input"
+                    tabindex="1"
+                    autofocus
+                    autocomplete="off"
+                />
+                <input class="submit" type="button" value="√" v-on:click="check()" />
+            </form>
+        </div>
+        <script src="js/jquery-3.5.1.slim.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
         <script src="js/vue.min.js"></script>
         <script src="js/single.js"></script>
     </body>
