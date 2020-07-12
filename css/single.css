@@ -1,0 +1,124 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 思源黑体;
+}
+
+.display {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.word {
+    display: flex;
+    margin: 2em 0;
+}
+
+.pair {
+    margin: 0 0.5em;
+    text-align: center;
+}
+.pair > .pinyin {
+    color: peru;
+    font-weight: lighter;
+}
+.pair > .character {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.2em;
+    width: 1.2em;
+    height: 1.2em;
+    line-height: 1em;
+    font-family: 思源宋体;
+    font-size: 2em;
+    font-weight: 1000;
+    border-style: solid;
+    border-width: thin;
+    border-color: peru;
+}
+.explanation {
+    padding: 0 2em;
+}
+.answer {
+    display: flex;
+    margin-top: 2em;
+    width: 100%;
+    height: 2em;
+}
+.answer > .score {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    position: absolute;
+    padding: 0 0.4em;
+    height: 2em;
+    border-style: solid;
+    border-width: thin;
+}
+.answer > .input {
+    flex-shrink: 1;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 1em;
+    outline: none;
+    border-style: solid none;
+    border-radius: 0;
+    -webkit-appearance: none;
+}
+.answer > .submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    position: absolute;
+    right: 0;
+    padding: 0;
+    width: 2em;
+    height: 2em;
+    font-size: 1em;
+    background-color: green;
+    border-radius: 0;
+    border-style: none;
+    -webkit-appearance: none;
+}
+.answer > .submit > img {
+    height: 100%;
+    width: 100%;
+}
+
+.bar-box {
+    width: 100%;
+    height: 5px;
+    background-color: red;
+}
+.bar {
+    height: 100%;
+    background-color: green;
+    transition: all 0.25s linear;
+}
+.pasts {
+    padding-top: 1.5em;
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: center;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+.pasts > .past {
+    cursor: pointer;
+    margin: 0.5em 0.5em;
+    padding: 0.2em 0.5em;
+    background-color: #eee;
+    border-radius: 0.3em;
+    transition: all 0.2s;
+}
+.pasts > .past:hover {
+    transform: scale(1.1);
+}

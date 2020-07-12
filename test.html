@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script src="https://res2.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+        <script>
+            wx.ready(function () {
+                //需在用户可能点击分享按钮前就先调用
+                wx.updateTimelineShareData({
+                    title: "标题", // 分享标题
+                    link: "https://www.yuansasi.com/lab/chengyujielong", // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                    imgUrl: "", // 分享图标
+                    success: function () {
+                        // 设置成功
+                    },
+                });
+            });
+            wx.updateTimelineShareData({
+                title: "标题", // 分享标题
+                link: "https://www.yuansasi.com/lab/chengyujielong", // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: "", // 分享图标
+                success: function () {
+                    // 设置成功
+                },
+            });
+        </script>
+    </body>
+</html>
