@@ -1,54 +1,22 @@
 let dict = {};
 let past = new Set();
 
-function load() {
-    let xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            parse(JSON.parse(xmlhttp.responseText));
-        }
-    };
-    xmlhttp.open(
-        "GET",
-        "https://raw.githubusercontent.com/pwxcoo/chinese-xinhua/master/data/idiom.json",
-        true
-    );
-    xmlhttp.send();
-}
-
-function parse(data) {
-    let word;
-    for (item of data) {
-        word = item["word"].replace("，", "").replace(" ", "");
-        dict[word] = {
-            word,
-            pinyin: item["pinyin"].split(" "),
-            explanation: item["explanation"],
-        };
-    }
-    start(data);
-}
-
-function start(data) {
-    let index = Math.floor(Math.random() * data.length);
-    vm.setWord(dict[data[index]["word"]]);
-}
-
 let vm = new Vue({
     el: "#game",
     data: {
-        word: "安之若素",
-        pinyin: ["an", "zhi", "ruo", "su"],
+        word: "正在加载",
+        pinyin: ["zhèng", "zài", "jiā", "zǎi"],
         explanation: "",
         input: "",
         timer: null,
-        time: 30,
-        setTime: 30,
-        score: -1,
-        msg: "欢迎",
+        time: 0,
+        setTime: 300,
+        score: 0,
+        run: false,
+        loader: null,
     },
     created: function () {
-        this.timer = setInterval(this.interval, 1000);
+        this.load();
     },
     computed: {
         pairs: function () {
@@ -63,6 +31,43 @@ let vm = new Vue({
         },
     },
     methods: {
+        load() {
+            this.loader = new XMLHttpRequest();
+            this.loader.onreadystatechange = () => {
+                if (this.loader.readyState == 4 && this.loader.status == 200) {
+                    this.parse(JSON.parse(this.loader.responseText));
+                }
+            };
+            this.loader.open("GET", "data/idiom.json", true);
+            this.loader.send();
+        },
+        parse(data) {
+            let word;
+            for (item of data) {
+                word = item["word"].replace("，", "").replace(" ", "");
+                dict[word] = {
+                    word,
+                    pinyin: item["pinyin"].split(" "),
+                    explanation: item["explanation"],
+                };
+            }
+            this.start(data);
+        },
+        start(data) {
+            let index = Math.floor(Math.random() * data.length);
+            this.run = true;
+            this.time = this.setTime;
+            this.setWord(dict[data[index]["word"]]);
+            this.timer = setInterval(this.interval, 1000);
+        },
+        interval() {
+            if (--this.time <= 0) {
+                clearInterval(this.timer);
+                alert(`您的得分为：${this.score}！`);
+                location.reload();
+            }
+            console.log(`剩余时间：${this.time}`);
+        },
         check() {
             let word = this.input.replace("，", "").replace(",", "").replace(" ", "");
             if (!(word = dict[word])) {
@@ -79,6 +84,7 @@ let vm = new Vue({
                 alert(this.msg);
             } else {
                 this.setWord(word);
+                this.addScore();
             }
             return false;
         },
@@ -88,18 +94,10 @@ let vm = new Vue({
             this.explanation = item.explanation;
             this.input = "";
             past.add(item.word);
-            this.time = this.setTime;
-            this.score++;
         },
-        interval() {
-            if (--this.time <= 0) {
-                clearInterval(this.timer);
-                alert(`您的得分为：${this.score}！`);
-                location.reload();
-            }
-            console.log(`剩余时间：${this.time}`);
+        addScore() {
+            this.score += Math.round((this.time * 100) / this.setTime);
+            this.time = this.setTime;
         },
     },
 });
-
-load();

@@ -48,15 +48,47 @@ body {
     width: 100%;
     height: 2em;
 }
+.answer > .score {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    position: absolute;
+    padding: 0 0.4em;
+    height: 2em;
+    border-style: solid;
+    border-width: thin;
+}
 .answer > .input {
     flex-shrink: 1;
     width: 100%;
+    height: 100%;
+    text-align: center;
     font-size: 1em;
+    outline: none;
+    border-style: solid none;
+    border-radius: 0;
+    -webkit-appearance: none;
 }
 .answer > .submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-shrink: 0;
+    position: absolute;
+    right: 0;
+    padding: 0;
     width: 2em;
+    height: 2em;
     font-size: 1em;
+    background-color: green;
+    border-radius: 0;
+    border-style: none;
+    -webkit-appearance: none;
+}
+.answer > .submit > img {
+    height: 100%;
+    width: 100%;
 }
 
 .bar-box {
@@ -68,10 +100,4 @@ body {
     height: 100%;
     background-color: green;
     transition: all 1s linear;
-}
-
-.score {
-    position: absolute;
-    top: 0;
-    right: 0;
 }

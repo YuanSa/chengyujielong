@@ -13,9 +13,8 @@
     <body>
         <div class="display" id="game">
             <div class="bar-box">
-                <div class="bar" v-bind:style="{width: 100*time/setTime +'%'}"></div>
+                <div class="bar" :style="{width: 100*time/setTime +'%'}"></div>
             </div>
-            <!--<div class="score">{{score}}</div>-->
             <div class="word">
                 <div class="pair" v-for="pair in pairs" :key="pair.char">
                     <div class="pinyin">{{pair.pinyin}}</div>
@@ -23,7 +22,8 @@
                 </div>
             </div>
             <div class="explanation">{{explanation}}</div>
-            <form class="answer" onsubmit="vm.check(); return false;">
+            <form class="answer" onsubmit="vm.check(); return false;" v-show="run">
+                <div class="score">{{score}}</div>
                 <input
                     class="input"
                     id="input"
@@ -33,7 +33,9 @@
                     autofocus
                     autocomplete="off"
                 />
-                <input class="submit" type="button" value="√" v-on:click="check()" />
+                <button class="submit">
+                    <img src="img/submit.svg" alt="好" />
+                </button>
             </form>
         </div>
         <!--
