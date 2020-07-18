@@ -41,7 +41,9 @@ body {
     border-width: thin;
     border-color: peru;
 }
-
+.explanation {
+    padding: 0 2em;
+}
 .answer {
     display: flex;
     margin-top: 2em;
@@ -99,5 +101,24 @@ body {
 .bar {
     height: 100%;
     background-color: green;
-    transition: all 1s linear;
+    transition: all 0.25s linear;
+}
+.pasts {
+    padding-top: 1.5em;
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: center;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+.pasts > .past {
+    cursor: pointer;
+    margin: 0.5em 0.5em;
+    padding: 0.2em 0.5em;
+    background-color: #eee;
+    border-radius: 0.3em;
+    transition: all 0.2s;
+}
+.pasts > .past:hover {
+    transform: scale(1.1);
 }

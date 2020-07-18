@@ -1,21 +1,25 @@
-let dict = {};
-let past = new Set();
-
 let vm = new Vue({
     el: "#game",
     data: {
+        //resource: "data/idiom.json",
+        resource: "https://yuansasi-1253312316.cos.ap-chengdu.myqcloud.com/idiom.json",
         word: "正在加载",
         pinyin: ["zhèng", "zài", "jiā", "zǎi"],
-        explanation: "",
+        explanation: "形容很手忙脚乱的样子",
         input: "",
         timer: null,
         time: 0,
-        setTime: 300,
+        setTime: 60,
         score: 0,
         run: false,
         loader: null,
+        dict: {},
+        past: new Set(),
     },
     created: function () {
+        if (location.hostname == "127.0.0.1:5500") {
+            this.resource = "data/idiom.json";
+        }
         this.load();
     },
     computed: {
@@ -38,14 +42,14 @@ let vm = new Vue({
                     this.parse(JSON.parse(this.loader.responseText));
                 }
             };
-            this.loader.open("GET", "data/idiom.json", true);
+            this.loader.open("GET", this.resource, true);
             this.loader.send();
         },
         parse(data) {
             let word;
             for (item of data) {
                 word = item["word"].replace("，", "").replace(" ", "");
-                dict[word] = {
+                this.dict[word] = {
                     word,
                     pinyin: item["pinyin"].split(" "),
                     explanation: item["explanation"],
@@ -57,7 +61,7 @@ let vm = new Vue({
             let index = Math.floor(Math.random() * data.length);
             this.run = true;
             this.time = this.setTime;
-            this.setWord(dict[data[index]["word"]]);
+            this.setWord(this.dict[data[index]["word"]]);
             this.timer = setInterval(this.interval, 1000);
         },
         interval() {
@@ -70,7 +74,7 @@ let vm = new Vue({
         },
         check() {
             let word = this.input.replace("，", "").replace(",", "").replace(" ", "");
-            if (!(word = dict[word])) {
+            if (!(word = this.dict[word])) {
                 this.msg = "不是成语";
                 alert(this.msg);
             } else if (
@@ -79,7 +83,7 @@ let vm = new Vue({
             ) {
                 this.msg = "首尾文字或读音不同";
                 alert(this.msg);
-            } else if (past.has(word.word)) {
+            } else if (this.past.has(word.word)) {
                 this.msg = "已经使用过了";
                 alert(this.msg);
             } else {
@@ -93,7 +97,7 @@ let vm = new Vue({
             this.pinyin = item.pinyin;
             this.explanation = item.explanation;
             this.input = "";
-            past.add(item.word);
+            this.past.add(item.word);
         },
         addScore() {
             this.score += Math.round((this.time * 100) / this.setTime);
