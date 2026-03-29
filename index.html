@@ -1,13 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>成语接龙 - 跳转</title>
-    </head>
-    <body>
-        <script>
-            location.href = "single.html";
-        </script>
-    </body>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成语接龙 · 雅集</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;900&family=Noto+Sans+SC:wght@300;400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Start Screen -->
+    <div class="start-screen" id="start-screen">
+        <h1 class="start-title">成语接龙</h1>
+        <p class="start-subtitle">修辞立其诚，言之有物</p>
+        <button class="start-btn" id="start-btn">开始雅集</button>
+    </div>
+
+    <!-- Review History Screen -->
+    <div class="review-screen" id="review-screen" style="display: none;">
+        <div class="review-header-area">
+            <h2 class="review-title">游戏结束</h2>
+            <div class="review-total-score" id="review-score-container"><span id="review-score-val"
+                    class="score-highlight">0</span></div>
+        </div>
+        <div class="review-list" id="review-list">
+            <!-- History items will be populated here -->
+            <!-- Hints will also be appended here at the end -->
+        </div>
+    </div>
+
+    <div class="display" id="game" style="display: none;">
+        <!-- Timer bar now spans the top edge -->
+        <div class="timer-container">
+            <div class="time-bar-bg">
+                <div class="bar" id="time-bar" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="game-board">
+            <div class="writing-area">
+                <!-- History Bubble Area (Bubbles up) -->
+                <div class="history-bubble-container" id="history-container">
+                    <!-- Old words will bubble up here -->
+                </div>
+
+                <!-- Current Word Stage -->
+                <div class="word-stage">
+                    <div class="word" id="word-display">
+                        <!-- 动态生成成语字符和拼音 -->
+                    </div>
+                    <div class="explanation-box">
+                        <div class="explanation" id="explanation">准备就绪...</div>
+                    </div>
+                </div>
+            </div>
+
+            <form class="answer" id="answer-form">
+                <div class="input-wrapper">
+                    <input class="input" id="input" type="text" tabindex="1" autocomplete="off"
+                        placeholder="输入四字成语，首尾相接..." />
+                    <button class="submit" type="submit" id="submit-btn">
+                        <span>落笔</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Absolute positioned feedback message -->
+        <div class="feedback-msg" id="feedback-msg"></div>
+    </div>
+
+    <!-- Load data as global variable -->
+    <script src="idiom.js"></script>
+    <!-- Load main logic -->
+    <script src="main.js"></script>
+</body>
+
 </html>
